@@ -1,334 +1,466 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Happy Birthday, My Love!</title>
-    
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    
-    <!-- React & ReactDOM -->
-    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
-    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
-    
-    <!-- Babel for JSX -->
-    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-    
-    <!-- Framer Motion -->
-    <script src="https://unpkg.com/framer-motion@10.16.4/dist/framer-motion.js"></script>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Happy Birthday, My Love!</title>
 
-    <!-- Fonts -->
-    <link href="https://cdn.jsdelivr.net/npm/fontsource-nunito@4.0.0/index.css" rel="stylesheet">
-    
-    <style>
-        body { font-family: 'Nunito', sans-serif; }
-        .hide-scrollbar::-webkit-scrollbar { display: none; }
-        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-    </style>
-</head>
-<body class="bg-rose-50 text-rose-800 overflow-x-hidden">
-    <div id="root"></div>
+        <!-- Tailwind CSS -->
+        <script src="https://cdn.tailwindcss.com"></script>
 
-    <script type="text/babel">
-        const { useState, useEffect } = React;
-        const Motion = window.Motion || window.framerMotion || {};
-        const { motion, AnimatePresence } = Motion;
+        <!-- React & ReactDOM -->
+        <script
+            crossorigin
+            src="https://unpkg.com/react@18/umd/react.production.min.js"
+        ></script>
+        <script
+            crossorigin
+            src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"
+        ></script>
 
-        const IMG_HERO = 'https://image.qwenlm.ai/public_source/1d25f243-b04d-400a-a175-9968f4f2cb3c/1fc71f5fb-cf90-4d9b-8cf0-626bcfcc2569.png';
-        const IMG_DATE = 'https://image.qwenlm.ai/public_source/1d25f243-b04d-400a-a175-9968f4f2cb3c/139615d92-d7ee-4417-a42e-bb09f0e58914.png';
-        const IMG_CAKE = 'https://image.qwenlm.ai/public_source/1d25f243-b04d-400a-a175-9968f4f2cb3c/191ae15e2-8f75-4e18-a138-175fd1a399c7.png';
+        <!-- Babel for JSX -->
+        <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 
-        const timelineEvents = [
-            {
-                title: "The Day We Met",
-                date: "The Beginning",
-                text: "Do you remember? That exact moment when our eyes first met. I didn't know it then, but my heart had already decided you were the one.",
-                image: IMG_HERO,
-            },
-            {
-                title: "Our First Date",
-                date: "The Butterflies",
-                text: "Nervous smiles, endless conversations, and the feeling that I could talk to you for hours. That afternoon changed everything.",
-                image: IMG_DATE,
-            },
-            {
-                title: "Making Memories",
-                date: "The Adventures",
-                text: "Every road trip, every late-night snack, every silly inside joke. Collecting moments with you is my favorite hobby in the whole world.",
-                image: IMG_HERO,
-            },
-            {
-                title: "Today & Forever",
-                date: "The Forever",
-                text: "Through every season, my love for you grows deeper. Today we celebrate you, the most amazing person I know. I can't wait for all our tomorrows.",
-                image: IMG_CAKE,
+        <!-- Framer Motion -->
+        <script src="https://unpkg.com/framer-motion@10.16.4/dist/framer-motion.js"></script>
+
+        <!-- Fonts -->
+        <link
+            href="https://cdn.jsdelivr.net/npm/fontsource-nunito@4.0.0/index.css"
+            rel="stylesheet"
+        />
+
+        <style>
+            body {
+                font-family: "Nunito", sans-serif;
             }
-        ];
+            .hide-scrollbar::-webkit-scrollbar {
+                display: none;
+            }
+            .hide-scrollbar {
+                -ms-overflow-style: none;
+                scrollbar-width: none;
+            }
+        </style>
+    </head>
+    <body class="bg-rose-50 text-rose-800 overflow-x-hidden">
+        <div id="root"></div>
 
-        function App() {
-            const [isLetterOpen, setIsLetterOpen] = useState(false);
-            const [wishMade, setWishMade] = useState(false);
-            const [hearts, setHearts] = useState([]);
+        <script type="text/babel">
+            const { useState, useEffect } = React;
+            const Motion = window.Motion || window.framerMotion || {};
+            const { motion, AnimatePresence } = Motion;
 
-            const makeWish = () => {
-                setWishMade(true);
-                const newHearts = Array.from({ length: 40 }, (_, i) => ({
-                    id: i,
-                    x: Math.random() * window.innerWidth,
-                    y: window.innerHeight + 100,
-                    color: ['#f472b6', '#fb7185', '#fda4af', '#fbcfe8', '#e11d48'][Math.floor(Math.random() * 5)],
-                    size: Math.random() * 24 + 16,
-                    duration: Math.random() * 3 + 2,
-                    delay: Math.random() * 0.5
-                }));
-                setHearts(newHearts);
-            };
+            const IMG_HERO =
+                "https://res.cloudinary.com/dszptryls/image/upload/f_auto,q_auto/ME_HER2_fdixnz";
+            const IMG_DATE =
+                "https://res.cloudinary.com/dszptryls/image/upload/f_auto,q_auto/ME_HER2_fdixnz";
+            const IMG_CAKE =
+                "https://image.qwenlm.ai/public_source/1d25f243-b04d-400a-a175-9968f4f2cb3c/191ae15e2-8f75-4e18-a138-175fd1a399c7.png";
 
-            return (
-                <div className="min-h-screen relative">
-                    {/* Floating Background Hearts */}
-                    <div className="fixed inset-0 pointer-events-none overflow-hidden z-0">
-                        {Array.from({ length: 15 }).map((_, i) => (
-                            <motion.div
-                                key={`bg-heart-${i}`}
-                                className="absolute text-pink-200"
-                                initial={{ y: '100vh', x: Math.random() * window.innerWidth, rotate: 0, opacity: 0 }}
-                                animate={{ y: '-100px', rotate: 360, opacity: [0, 1, 1, 0] }}
-                                transition={{ duration: Math.random() * 10 + 10, repeat: Infinity, delay: Math.random() * 10 }}
-                                style={{ fontSize: Math.random() * 20 + 20 }}
-                            >
-                                ♥
-                            </motion.div>
-                        ))}
-                    </div>
+            const timelineEvents = [
+                {
+                    title: "The Day We Met",
+                    date: "The Beginning",
+                    text: "Do you remember? That exact moment when our eyes first met. When you put my hand on your chest, and I almost couldn't breathe? I didn't know it then, but my heart had already decided you were the one.",
+                    image: IMG_HERO,
+                },
+                {
+                    title: "Our First Date",
+                    date: "The Butterflies",
+                    text: "Nervous smiles, endless conversations, and the feeling that I could talk to you for hours. That afternoon changed everything.",
+                    image: IMG_DATE,
+                },
+                {
+                    title: "Making Memories",
+                    date: "The Adventures",
+                    text: "Here's to every road trip and every late-night snack that we are yet to have together, and every silly jokes we haven't made yet. Collecting moments with you is my favorite hobby in the whole world.",
+                    image: IMG_HERO,
+                },
+                {
+                    title: "Today & Forever",
+                    date: "The Forever",
+                    text: "Through every season, my love for you grows deeper. Today I celebrate you, the most amazing person I know. I can't wait for all our tomorrows.",
+                    image: IMG_CAKE,
+                },
+            ];
 
-                    {/* Hero Section */}
-                    <section className="relative z-10 min-h-screen flex flex-col items-center justify-center px-4 py-20">
-                        <motion.h1 
-                            initial={{ opacity: 0, y: -20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 1 }}
-                            className="text-5xl md:text-7xl font-extrabold text-center text-rose-500 mb-4 drop-shadow-sm"
-                        >
-                            Happy Birthday! 🎉
-                        </motion.h1>
-                        <motion.p
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            transition={{ delay: 0.5, duration: 1 }}
-                            className="text-xl md:text-2xl text-rose-400 text-center mb-12 max-w-2xl font-semibold"
-                        >
-                            A little journey through our love story, just for you.
-                        </motion.p>
-                        <motion.div
-                            initial={{ scale: 0, rotate: -10 }}
-                            animate={{ scale: 1, rotate: 0 }}
-                            transition={{ type: "spring", stiffness: 200, damping: 20, delay: 0.3 }}
-                            className="relative"
-                        >
-                            <div className="absolute -inset-4 bg-pink-200 rounded-full blur-xl opacity-60 animate-pulse"></div>
-                            <img 
-                                src={IMG_HERO} 
-                                alt="Us" 
-                                className="relative w-72 h-72 md:w-96 md:h-96 object-cover rounded-full border-8 border-white shadow-2xl"
-                            />
-                        </motion.div>
-                        <motion.div 
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            transition={{ delay: 1.5 }}
-                            className="mt-16 animate-bounce"
-                        >
-                            <p className="text-rose-300 text-sm font-bold">Scroll down to begin our journey ↓</p>
-                        </motion.div>
-                    </section>
+            function App() {
+                const [isLetterOpen, setIsLetterOpen] = useState(false);
+                const [wishMade, setWishMade] = useState(false);
+                const [hearts, setHearts] = useState([]);
 
-                    {/* Timeline Section */}
-                    <section className="relative z-10 py-20 px-4 max-w-5xl mx-auto">
-                        <motion.h2 
-                            initial={{ opacity: 0 }}
-                            whileInView={{ opacity: 1 }}
-                            className="text-4xl md:text-5xl font-extrabold text-center text-rose-500 mb-20"
-                        >
-                            Our Beautiful Journey 💕
-                        </motion.h2>
-                        
-                        <div className="relative">
-                            <div className="absolute left-4 md:left-1/2 md:transform md:-translate-x-1/2 w-1 h-full bg-pink-200 rounded-full"></div>
+                const makeWish = () => {
+                    setWishMade(true);
+                    const newHearts = Array.from({ length: 40 }, (_, i) => ({
+                        id: i,
+                        x: Math.random() * window.innerWidth,
+                        y: window.innerHeight + 100,
+                        color: [
+                            "#f472b6",
+                            "#fb7185",
+                            "#fda4af",
+                            "#fbcfe8",
+                            "#e11d48",
+                        ][Math.floor(Math.random() * 5)],
+                        size: Math.random() * 24 + 16,
+                        duration: Math.random() * 3 + 2,
+                        delay: Math.random() * 0.5,
+                    }));
+                    setHearts(newHearts);
+                };
 
-                            {timelineEvents.map((event, index) => (
-                                <motion.div 
-                                    key={index}
-                                    initial={{ opacity: 0, x: index % 2 === 0 ? -50 : 50 }}
-                                    whileInView={{ opacity: 1, x: 0 }}
-                                    transition={{ duration: 0.8, delay: index * 0.2 }}
-                                    viewport={{ once: true, margin: "-100px" }}
-                                    className="relative flex items-start mb-16 md:flex-row flex-col"
+                return (
+                    <div className="min-h-screen relative">
+                        {/* Floating Background Hearts */}
+                        <div className="fixed inset-0 pointer-events-none overflow-hidden z-0">
+                            {Array.from({ length: 15 }).map((_, i) => (
+                                <motion.div
+                                    key={`bg-heart-${i}`}
+                                    className="absolute text-pink-200"
+                                    initial={{
+                                        y: "100vh",
+                                        x: Math.random() * window.innerWidth,
+                                        rotate: 0,
+                                        opacity: 0,
+                                    }}
+                                    animate={{
+                                        y: "-100px",
+                                        rotate: 360,
+                                        opacity: [0, 1, 1, 0],
+                                    }}
+                                    transition={{
+                                        duration: Math.random() * 10 + 10,
+                                        repeat: Infinity,
+                                        delay: Math.random() * 10,
+                                    }}
+                                    style={{
+                                        fontSize: Math.random() * 20 + 20,
+                                    }}
                                 >
-                                    <div className={`w-full md:w-5/12 mb-6 md:mb-0 ${index % 2 === 0 ? 'md:pr-12 md:text-right' : 'md:pl-12 md:order-2'}`}>
-                                        <div className="bg-white p-6 rounded-2xl shadow-lg border-2 border-pink-100 hover:border-pink-300 transition-colors">
-                                            <p className="text-pink-400 font-bold text-sm mb-1 uppercase tracking-wide">{event.date}</p>
-                                            <h3 className="text-2xl font-extrabold text-rose-500 mb-3">{event.title}</h3>
-                                            <p className="text-rose-700 leading-relaxed">{event.text}</p>
-                                        </div>
-                                    </div>
-
-                                    <div className="absolute left-4 md:left-1/2 transform -translate-x-1/2 w-6 h-6 bg-rose-400 rounded-full border-4 border-white shadow-md z-10 mt-6 md:mt-8"></div>
-
-                                    <div className={`w-full md:w-5/12 ${index % 2 === 0 ? 'md:order-2' : 'md:order-1'}`}>
-                                        <motion.img
-                                            whileHover={{ scale: 1.05, rotate: index % 2 === 0 ? 2 : -2 }}
-                                            src={event.image}
-                                            alt={event.title}
-                                            className="w-full h-64 object-cover rounded-2xl shadow-lg border-4 border-white"
-                                        />
-                                    </div>
+                                    ♥
                                 </motion.div>
                             ))}
                         </div>
-                    </section>
 
-                    {/* Love Letter Section */}
-                    <section className="relative z-10 py-20 px-4 bg-gradient-to-b from-rose-50 to-pink-100">
-                        <motion.h2 
-                            initial={{ opacity: 0 }}
-                            whileInView={{ opacity: 1 }}
-                            className="text-4xl md:text-5xl font-extrabold text-center text-rose-500 mb-16"
-                        >
-                            A Little Letter For You 
-                        </motion.h2>
-                        
-                        <div className="flex flex-col items-center justify-center min-h-[400px]">
-                            <AnimatePresence mode="wait">
-                                {!isLetterOpen ? (
-                                    <motion.div
-                                        key="envelope"
-                                        initial={{ scale: 0.8 }}
-                                        animate={{ scale: 1 }}
-                                        exit={{ scale: 0.8, opacity: 0 }}
-                                        onClick={() => setIsLetterOpen(true)}
-                                        className="relative cursor-pointer group"
-                                        whileHover={{ scale: 1.05 }}
-                                        whileTap={{ scale: 0.95 }}
-                                    >
-                                        <div className="w-80 h-52 bg-pink-100 rounded-lg shadow-2xl relative overflow-hidden border-2 border-pink-300">
-                                            <div className="absolute bottom-0 left-0 w-0 h-0 border-l-[160px] border-r-[160px] border-b-[100px] border-l-transparent border-r-transparent border-b-pink-300 z-10"></div>
-                                            <div className="absolute bottom-0 left-0 w-0 h-0 border-t-[100px] border-b-[100px] border-l-[160px] border-t-transparent border-b-transparent border-l-pink-200 z-10"></div>
-                                            <div className="absolute bottom-0 right-0 w-0 h-0 border-t-[100px] border-b-[100px] border-r-[160px] border-t-transparent border-b-transparent border-r-pink-200 z-10"></div>
-                                            <motion.div 
-                                                initial={{ rotateX: 0 }}
-                                                whileHover={{ rotateX: -20 }}
-                                                className="absolute top-0 left-0 w-0 h-0 border-l-[160px] border-r-[160px] border-t-[100px] border-l-transparent border-r-transparent border-t-pink-400 z-20 origin-top"
-                                            ></motion.div>
-                                            
-                                            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-16 h-16 bg-rose-500 rounded-full flex items-center justify-center shadow-lg z-30 group-hover:scale-110 transition-transform">
-                                                <span className="text-white text-3xl">♥</span>
-                                            </div>
-                                        </div>
-                                        <p className="text-center mt-6 text-rose-400 font-bold">Tap to open my letter ✨</p>
-                                    </motion.div>
-                                ) : (
-                                    <motion.div
-                                        key="letter"
-                                        initial={{ opacity: 0, y: 50 }}
-                                        animate={{ opacity: 1, y: 0 }}
-                                        transition={{ duration: 0.8 }}
-                                        className="max-w-2xl bg-white p-8 md:p-12 rounded-2xl shadow-2xl border-2 border-pink-200 relative w-full"
-                                    >
-                                        <button 
-                                            onClick={() => setIsLetterOpen(false)}
-                                            className="absolute top-4 right-4 text-rose-300 hover:text-rose-500 text-2xl font-bold"
-                                        >
-                                            ✕
-                                        </button>
-                                        <h3 className="text-3xl font-extrabold text-rose-500 mb-6">My Dearest Love,</h3>
-                                        <div className="text-rose-700 leading-relaxed space-y-4 text-lg">
-                                            <p>On your special day, I want you to know just how much you mean to me. You are the sun that brightens my mornings and the stars that guide me through the night.</p>
-                                            <p>Every moment with you feels like a beautiful dream I never want to wake up from. Your smile is my favorite sight, your laugh is my favorite sound, and your heart is my favorite place to be.</p>
-                                            <p>Thank you for being the most amazing, kind, and loving person I've ever known. I promise to love you, cherish you, and make you smile every single day.</p>
-                                            <p className="font-extrabold text-rose-500 text-xl mt-8">Happy Birthday, my forever person! 🎂🎈</p>
-                                            <p className="text-right mt-4 text-rose-400 font-semibold">- With all my love, always ♥</p>
-                                        </div>
-                                    </motion.div>
-                                )}
-                            </AnimatePresence>
-                        </div>
-                    </section>
-
-                    {/* Interactive Finale Section */}
-                    <section className="relative z-10 py-20 px-4 flex flex-col items-center justify-center min-h-screen">
-                        <motion.img
-                            initial={{ opacity: 0, scale: 0.8 }}
-                            whileInView={{ opacity: 1, scale: 1 }}
-                            src={IMG_CAKE}
-                            alt="Birthday Cake"
-                            className="w-64 h-64 md:w-80 md:h-80 object-contain mb-12 drop-shadow-2xl"
-                        />
-                        
-                        {!wishMade ? (
-                            <motion.button
-                                whileHover={{ scale: 1.1 }}
-                                whileTap={{ scale: 0.9 }}
-                                onClick={makeWish}
-                                className="bg-rose-500 text-white px-12 py-4 rounded-full text-xl font-extrabold shadow-lg hover:bg-rose-600 transition-colors border-4 border-white"
+                        {/* Hero Section */}
+                        <section className="relative z-10 min-h-screen flex flex-col items-center justify-center px-4 py-20">
+                            <motion.h1
+                                initial={{ opacity: 0, y: -20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ duration: 1 }}
+                                className="text-5xl md:text-7xl font-extrabold text-center text-rose-500 mb-4 drop-shadow-sm"
                             >
-                                Make a Wish & Click Me! 🎂
-                            </motion.button>
-                        ) : (
+                                Happy Birthday! 🎉
+                            </motion.h1>
+                            <motion.p
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                transition={{ delay: 0.5, duration: 1 }}
+                                className="text-xl md:text-2xl text-rose-400 text-center mb-12 max-w-2xl font-semibold"
+                            >
+                                A little journey through our love story, just
+                                for you.
+                            </motion.p>
                             <motion.div
-                                initial={{ scale: 0, rotate: -180 }}
+                                initial={{ scale: 0, rotate: -10 }}
                                 animate={{ scale: 1, rotate: 0 }}
-                                transition={{ type: "spring", stiffness: 200 }}
-                                className="text-center"
+                                transition={{
+                                    type: "spring",
+                                    stiffness: 200,
+                                    damping: 20,
+                                    delay: 0.3,
+                                }}
+                                className="relative"
                             >
-                                <motion.p 
-                                    initial={{ opacity: 0, y: 20 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    transition={{ delay: 0.5 }}
-                                    className="text-3xl md:text-5xl font-extrabold text-rose-500 mb-4"
-                                >
-                                    Your wish is my command! ✨
-                                </motion.p>
-                                <p className="text-xl text-rose-400 max-w-lg mx-auto font-semibold">
-                                    I promise to make every day as special as you are. I love you to the moon and back! ♥️
+                                <div className="absolute -inset-4 bg-pink-200 rounded-full blur-xl opacity-60 animate-pulse"></div>
+                                <img
+                                    src={IMG_HERO}
+                                    alt="Us"
+                                    className="relative w-72 h-72 md:w-96 md:h-96 object-cover rounded-full border-8 border-white shadow-2xl"
+                                />
+                            </motion.div>
+                            <motion.div
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                transition={{ delay: 1.5 }}
+                                className="mt-16 animate-bounce"
+                            >
+                                <p className="text-rose-300 text-sm font-bold">
+                                    Scroll down to begin our journey ↓
                                 </p>
                             </motion.div>
-                        )}
-                    </section>
+                        </section>
 
-                    {/* Footer */}
-                    <footer className="relative z-10 py-8 text-center text-rose-300 bg-pink-100 font-bold">
-                        <p>Made with ♥ just for you</p>
-                    </footer>
-
-                    {/* Heart Explosion Animation */}
-                    <AnimatePresence>
-                        {wishMade && hearts.map((heart) => (
-                            <motion.div
-                                key={heart.id}
-                                initial={{ y: heart.y, x: heart.x, opacity: 1, scale: 0 }}
-                                animate={{ 
-                                    y: -200, 
-                                    x: heart.x + (Math.random() - 0.5) * 200, 
-                                    opacity: 0, 
-                                    scale: heart.size / 20 
-                                }}
-                                exit={{ opacity: 0 }}
-                                transition={{ duration: heart.duration, delay: heart.delay }}
-                                className="fixed pointer-events-none z-50"
-                                style={{ color: heart.color, fontSize: heart.size }}
+                        {/* Timeline Section */}
+                        <section className="relative z-10 py-20 px-4 max-w-5xl mx-auto">
+                            <motion.h2
+                                initial={{ opacity: 0 }}
+                                whileInView={{ opacity: 1 }}
+                                className="text-4xl md:text-5xl font-extrabold text-center text-rose-500 mb-20"
                             >
-                                ♥
-                            </motion.div>
-                        ))}
-                    </AnimatePresence>
-                </div>
-            );
-        }
+                                Our Beautiful Journey 💕
+                            </motion.h2>
 
-        const root = ReactDOM.createRoot(document.getElementById('root'));
-        root.render(<App />);
-    </script>
-</body>
+                            <div className="relative">
+                                <div className="absolute left-4 md:left-1/2 md:transform md:-translate-x-1/2 w-1 h-full bg-pink-200 rounded-full"></div>
+
+                                {timelineEvents.map((event, index) => (
+                                    <motion.div
+                                        key={index}
+                                        initial={{
+                                            opacity: 0,
+                                            x: index % 2 === 0 ? -50 : 50,
+                                        }}
+                                        whileInView={{ opacity: 1, x: 0 }}
+                                        transition={{
+                                            duration: 0.8,
+                                            delay: index * 0.2,
+                                        }}
+                                        viewport={{
+                                            once: true,
+                                            margin: "-100px",
+                                        }}
+                                        className="relative flex items-start mb-16 md:flex-row flex-col"
+                                    >
+                                        <div
+                                            className={`w-full md:w-5/12 mb-6 md:mb-0 ${index % 2 === 0 ? "md:pr-12 md:text-right" : "md:pl-12 md:order-2"}`}
+                                        >
+                                            <div className="bg-white p-6 rounded-2xl shadow-lg border-2 border-pink-100 hover:border-pink-300 transition-colors">
+                                                <p className="text-pink-400 font-bold text-sm mb-1 uppercase tracking-wide">
+                                                    {event.date}
+                                                </p>
+                                                <h3 className="text-2xl font-extrabold text-rose-500 mb-3">
+                                                    {event.title}
+                                                </h3>
+                                                <p className="text-rose-700 leading-relaxed">
+                                                    {event.text}
+                                                </p>
+                                            </div>
+                                        </div>
+
+                                        <div className="absolute left-4 md:left-1/2 transform -translate-x-1/2 w-6 h-6 bg-rose-400 rounded-full border-4 border-white shadow-md z-10 mt-6 md:mt-8"></div>
+
+                                        <div
+                                            className={`w-full md:w-5/12 ${index % 2 === 0 ? "md:order-2" : "md:order-1"}`}
+                                        >
+                                            <motion.img
+                                                whileHover={{
+                                                    scale: 1.05,
+                                                    rotate:
+                                                        index % 2 === 0
+                                                            ? 2
+                                                            : -2,
+                                                }}
+                                                src={event.image}
+                                                alt={event.title}
+                                                className="w-full h-64 object-cover rounded-2xl shadow-lg border-4 border-white"
+                                            />
+                                        </div>
+                                    </motion.div>
+                                ))}
+                            </div>
+                        </section>
+
+                        {/* Love Letter Section */}
+                        <section className="relative z-10 py-20 px-4 bg-gradient-to-b from-rose-50 to-pink-100">
+                            <motion.h2
+                                initial={{ opacity: 0 }}
+                                whileInView={{ opacity: 1 }}
+                                className="text-4xl md:text-5xl font-extrabold text-center text-rose-500 mb-16"
+                            >
+                                A Little Letter For You
+                            </motion.h2>
+
+                            <div className="flex flex-col items-center justify-center min-h-[400px]">
+                                <AnimatePresence mode="wait">
+                                    {!isLetterOpen ? (
+                                        <motion.div
+                                            key="envelope"
+                                            initial={{ scale: 0.8 }}
+                                            animate={{ scale: 1 }}
+                                            exit={{ scale: 0.8, opacity: 0 }}
+                                            onClick={() =>
+                                                setIsLetterOpen(true)
+                                            }
+                                            className="relative cursor-pointer group"
+                                            whileHover={{ scale: 1.05 }}
+                                            whileTap={{ scale: 0.95 }}
+                                        >
+                                            <div className="w-80 h-52 bg-pink-100 rounded-lg shadow-2xl relative overflow-hidden border-2 border-pink-300">
+                                                <div className="absolute bottom-0 left-0 w-0 h-0 border-l-[160px] border-r-[160px] border-b-[100px] border-l-transparent border-r-transparent border-b-pink-300 z-10"></div>
+                                                <div className="absolute bottom-0 left-0 w-0 h-0 border-t-[100px] border-b-[100px] border-l-[160px] border-t-transparent border-b-transparent border-l-pink-200 z-10"></div>
+                                                <div className="absolute bottom-0 right-0 w-0 h-0 border-t-[100px] border-b-[100px] border-r-[160px] border-t-transparent border-b-transparent border-r-pink-200 z-10"></div>
+                                                <motion.div
+                                                    initial={{ rotateX: 0 }}
+                                                    whileHover={{
+                                                        rotateX: -20,
+                                                    }}
+                                                    className="absolute top-0 left-0 w-0 h-0 border-l-[160px] border-r-[160px] border-t-[100px] border-l-transparent border-r-transparent border-t-pink-400 z-20 origin-top"
+                                                ></motion.div>
+
+                                                <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-16 h-16 bg-rose-500 rounded-full flex items-center justify-center shadow-lg z-30 group-hover:scale-110 transition-transform">
+                                                    <span className="text-white text-3xl">
+                                                        ♥
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <p className="text-center mt-6 text-rose-400 font-bold">
+                                                Tap to open my letter ✨
+                                            </p>
+                                        </motion.div>
+                                    ) : (
+                                        <motion.div
+                                            key="letter"
+                                            initial={{ opacity: 0, y: 50 }}
+                                            animate={{ opacity: 1, y: 0 }}
+                                            transition={{ duration: 0.8 }}
+                                            className="max-w-2xl bg-white p-8 md:p-12 rounded-2xl shadow-2xl border-2 border-pink-200 relative w-full"
+                                        >
+                                            <button
+                                                onClick={() =>
+                                                    setIsLetterOpen(false)
+                                                }
+                                                className="absolute top-4 right-4 text-rose-300 hover:text-rose-500 text-2xl font-bold"
+                                            >
+                                                ✕
+                                            </button>
+                                            <h3 className="text-3xl font-extrabold text-rose-500 mb-6">
+                                                My Dearest Love,
+                                            </h3>
+                                            <div className="text-rose-700 leading-relaxed space-y-4 text-lg">
+                                                <p>
+                                                    On your special day, I want
+                                                    you to know just how much
+                                                    you mean to me. You are the
+                                                    sun that brightens my
+                                                    mornings and the stars that
+                                                    guide me through the night.
+                                                </p>
+                                                <p>
+                                                    Every moment with you feels
+                                                    like a beautiful dream I
+                                                    never want to wake up from.
+                                                    Your smile is my favorite
+                                                    sight, your laugh is my
+                                                    favorite sound, and your
+                                                    heart is my favorite place
+                                                    to be.
+                                                </p>
+                                                <p>
+                                                    Thank you for being the most
+                                                    amazing, kind, and loving
+                                                    person I've ever known. I
+                                                    promise to love you, cherish
+                                                    you, and make you smile
+                                                    every single day.
+                                                </p>
+                                                <p className="font-extrabold text-rose-500 text-xl mt-8">
+                                                    Happy Birthday, Lazy
+                                                    bug! 🎂🎈
+                                                </p>
+                                                <p className="text-right mt-4 text-rose-400 font-semibold">
+                                                    - With all my love, always ♥
+                                                </p>
+                                            </div>
+                                        </motion.div>
+                                    )}
+                                </AnimatePresence>
+                            </div>
+                        </section>
+
+                        {/* Interactive Finale Section */}
+                        <section className="relative z-10 py-20 px-4 flex flex-col items-center justify-center min-h-screen">
+                            <motion.img
+                                initial={{ opacity: 0, scale: 0.8 }}
+                                whileInView={{ opacity: 1, scale: 1 }}
+                                src={IMG_CAKE}
+                                alt="Birthday Cake"
+                                className="w-64 h-64 md:w-80 md:h-80 object-contain mb-12 drop-shadow-2xl"
+                            />
+
+                            {!wishMade ? (
+                                <motion.button
+                                    whileHover={{ scale: 1.1 }}
+                                    whileTap={{ scale: 0.9 }}
+                                    onClick={makeWish}
+                                    className="bg-rose-500 text-white px-12 py-4 rounded-full text-xl font-extrabold shadow-lg hover:bg-rose-600 transition-colors border-4 border-white"
+                                >
+                                    Make a Wish & Click Me! 🎂
+                                </motion.button>
+                            ) : (
+                                <motion.div
+                                    initial={{ scale: 0, rotate: -180 }}
+                                    animate={{ scale: 1, rotate: 0 }}
+                                    transition={{
+                                        type: "spring",
+                                        stiffness: 200,
+                                    }}
+                                    className="text-center"
+                                >
+                                    <motion.p
+                                        initial={{ opacity: 0, y: 20 }}
+                                        animate={{ opacity: 1, y: 0 }}
+                                        transition={{ delay: 0.5 }}
+                                        className="text-3xl md:text-5xl font-extrabold text-rose-500 mb-4"
+                                    >
+                                        Your wish is my command! ✨
+                                    </motion.p>
+                                    <p className="text-xl text-rose-400 max-w-lg mx-auto font-semibold">
+                                        I promise to make every day as special
+                                        as you are. I love you to the moon and
+                                        back! ♥️
+                                    </p>
+                                </motion.div>
+                            )}
+                        </section>
+
+                        {/* Footer */}
+                        <footer className="relative z-10 py-8 text-center text-rose-300 bg-pink-100 font-bold">
+                            <p>Made with ♥ just for you</p>
+                        </footer>
+
+                        {/* Heart Explosion Animation */}
+                        <AnimatePresence>
+                            {wishMade &&
+                                hearts.map((heart) => (
+                                    <motion.div
+                                        key={heart.id}
+                                        initial={{
+                                            y: heart.y,
+                                            x: heart.x,
+                                            opacity: 1,
+                                            scale: 0,
+                                        }}
+                                        animate={{
+                                            y: -200,
+                                            x:
+                                                heart.x +
+                                                (Math.random() - 0.5) * 200,
+                                            opacity: 0,
+                                            scale: heart.size / 20,
+                                        }}
+                                        exit={{ opacity: 0 }}
+                                        transition={{
+                                            duration: heart.duration,
+                                            delay: heart.delay,
+                                        }}
+                                        className="fixed pointer-events-none z-50"
+                                        style={{
+                                            color: heart.color,
+                                            fontSize: heart.size,
+                                        }}
+                                    >
+                                        ♥
+                                    </motion.div>
+                                ))}
+                        </AnimatePresence>
+                    </div>
+                );
+            }
+
+            const root = ReactDOM.createRoot(document.getElementById("root"));
+            root.render(<App />);
+        </script>
+    </body>
 </html>
